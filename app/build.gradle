@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'dagger.hilt.android.plugin'
+
+repositories {
+    mavenLocal()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    compileSdkVersion 33
+    buildToolsVersion '30.0.3'
+
+    defaultConfig {
+        applicationId "com.google.firebase.udacity.friendlychat"
+        minSdkVersion 24
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+        resConfigs 'en'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/LICENSE', 'META-INF/LICENSE-FIREBASE.txt', 'META-INF/NOTICE']
+        }
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+    namespace 'com.google.firebase.udacity.friendlychat'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.13.2'
+
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.21"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation"androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation platform('com.google.firebase:firebase-bom:27.0.0')
+
+// When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    // Displaying images
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    implementation "com.google.dagger:hilt-android:2.42"
+    kapt "com.google.dagger:hilt-compiler:2.42"
+    kapt "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.4.2"
+
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
+    implementation "androidx.datastore:datastore-preferences:1.1.0-alpha01"
+    implementation "androidx.datastore:datastore:1.1.0-alpha01"
+
+
+    implementation "androidx.activity:activity-ktx:1.6.1"
+    implementation "androidx.core:core-ktx:1.9.0"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+
+    implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
+
+    implementation 'android.arch.work:work-runtime:1.0.1'
+}

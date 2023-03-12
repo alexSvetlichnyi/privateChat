@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.Gravity"/>
+        <variable
+            name="viewModel"
+            type="com.google.firebase.udacity.friendlychat.ItemViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="@{viewModel.isCurrentUser() ? Gravity.START : Gravity.END}">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cornerFamily="rounded"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:padding="8dp"
+        app:background="@{viewModel.backgroundColor}"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/user_image"
+            app:shapeAppearanceOverlay="@style/circleImageView"
+            app:srcCompat="@drawable/fui_ic_googleg_color_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="24dp"
+            android:layout_height="24dp"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vert_guide"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="32dp" />
+
+        <ImageView
+            android:id="@+id/photoImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/vert_guide"
+            app:layout_constraintBottom_toTopOf="@+id/nameTextView"
+            android:visibility="@{viewModel.imageVisibility}"
+            app:imageUrl="@{viewModel.imageUrl}"/>
+
+        <TextView
+            android:id="@+id/messageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/vert_guide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/nameTextView"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            app:layout_constrainedWidth="true"
+            android:textSize="14sp"
+            android:visibility="@{viewModel.textVisibility}"
+            android:text="@{viewModel.messageText}"
+            tools:text="Mes" />
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/messageTextView"
+            app:layout_constraintStart_toEndOf="@+id/vert_guide"
+            android:textSize="12sp"
+            android:paddingEnd="16dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/timeTextView"
+            android:text="@{viewModel.author}"
+            tools:text="Oleksandr.svetlichnyi" />
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/nameTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constrainedWidth="true"
+            android:textSize="12sp"
+            android:text="@{viewModel.messageTime}"
+            tools:text="time" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+</layout>
